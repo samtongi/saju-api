@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>실시간 사주풀이</title>
+    <script>
+        async function getSaju() {
+            let year = document.getElementById("year").value;
+            let month = document.getElementById("month").value;
+            let day = document.getElementById("day").value;
+            let hour = document.getElementById("hour").value;
+
+            if (!year || !month || !day || !hour) {
+                alert("생년월일시를 모두 입력해주세요.");
+                return;
+            }
+
+            let response = await fetch("https://saju-api.onrender.com", {  // API URL 적용
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ year, month, day, hour })
+            });
+
+            let data = await response.json();
+            document.getElementById("result").innerText = data.saju_result;
+        }
+    </script>
+</head>
+<body>
+    <h2>ChatGPT 기반 실시간 사주풀이</h2>
+    <label>출생 연도: </label><input type="number" id="year"><br>
+    <label>출생 월: </label><input type="number" id="month"><br>
+    <label>출생 일: </label><input type="number" id="day"><br>
+    <label>출생 시간 (0~23): </label><input type="number" id="hour"><br>
+    <button onclick="getSaju()">사주 풀이하기</button>
+    <p id="result"></p>
+</body>
+</html>
