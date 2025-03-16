@@ -5,7 +5,7 @@ import openai  # OpenAI API 호출
 app = Flask(__name__)
 
 # OpenAI API Key 설정 (환경 변수에서 불러오기)
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("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")
 
 def get_saju_interpretation(year, month, day, hour):
     prompt = f"""
