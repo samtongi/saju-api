@@ -1,10 +1,11 @@
+import os
 from flask import Flask, request, jsonify
 import openai  # OpenAI API 호출
 
 app = Flask(__name__)
 
-# OpenAI API Key 설정 (자신의 키 입력)
-openai.api_key = "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"
+# OpenAI API Key 설정 (환경 변수에서 불러오기)
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def get_saju_interpretation(year, month, day, hour):
     prompt = f"""
@@ -41,4 +42,6 @@ def get_saju():
     return jsonify({"saju_result": result})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    # Render에서 제공하는 포트를 자동으로 사용하도록 변경
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
